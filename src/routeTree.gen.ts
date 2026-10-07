@@ -10,13 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DevelopersRouteImport } from './routes/developers'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as VisionRouteImport } from './routes/vision'
+import { Route as AuthenticatedAlphaRouteImport } from './routes/_authenticated/alpha'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DevelopersRoute = DevelopersRouteImport.update({
@@ -34,36 +46,58 @@ const VisionRoute = VisionRouteImport.update({
   path: '/vision',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAlphaRoute = AuthenticatedAlphaRouteImport.update({
+  id: '/alpha',
+  path: '/alpha',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/developers': typeof DevelopersRoute
   '/roadmap': typeof RoadmapRoute
   '/vision': typeof VisionRoute
+  '/alpha': typeof AuthenticatedAlphaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/developers': typeof DevelopersRoute
   '/roadmap': typeof RoadmapRoute
   '/vision': typeof VisionRoute
+  '/alpha': typeof AuthenticatedAlphaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/developers': typeof DevelopersRoute
   '/roadmap': typeof RoadmapRoute
   '/vision': typeof VisionRoute
+  '/_authenticated/alpha': typeof AuthenticatedAlphaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/developers' | '/roadmap' | '/vision'
+  fullPaths: '/' | '/auth' | '/developers' | '/roadmap' | '/vision' | '/alpha'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/developers' | '/roadmap' | '/vision'
-  id: '__root__' | '/' | '/developers' | '/roadmap' | '/vision'
+  to: '/' | '/auth' | '/developers' | '/roadmap' | '/vision' | '/alpha'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/developers'
+    | '/roadmap'
+    | '/vision'
+    | '/_authenticated/alpha'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   DevelopersRoute: typeof DevelopersRoute
   RoadmapRoute: typeof RoadmapRoute
   VisionRoute: typeof VisionRoute
@@ -76,6 +110,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/developers': {
@@ -99,11 +147,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VisionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/alpha': {
+      id: '/_authenticated/alpha'
+      path: '/alpha'
+      fullPath: '/alpha'
+      preLoaderRoute: typeof AuthenticatedAlphaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAlphaRoute: typeof AuthenticatedAlphaRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAlphaRoute: AuthenticatedAlphaRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   DevelopersRoute: DevelopersRoute,
   RoadmapRoute: RoadmapRoute,
   VisionRoute: VisionRoute,
