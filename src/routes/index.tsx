@@ -1,24 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowDown, ArrowUpRight, Crosshair, Fingerprint, Network, ShieldCheck, Bot, Check, X } from 'lucide-react';
+import { WaitlistForm } from '@/components/waitlist-form';
+import { Button } from '@/components/ui/button';
+import { pageMeta } from '@/lib/page-meta';
+import shieldImage from '@/assets/shield-network.jpg';
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
+export const Route = createFileRoute('/')({ head: () => pageMeta('SybilShield — Zero Bots. Pure Growth.', 'Building precision on-chain attribution for a more human Web3. Join the SybilShield closed-alpha waitlist.'), component: Index });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <><section className="home-hero"><img src={shieldImage} width={1536} height={1024} className="hero-art" alt="A luminous shield filtering a network of blockchain wallets"/><div className="hero-shade"/><div className="hero-content"><div className="alpha-label"><span className="status-dot"/> CORE ENGINE ALPHA <span className="label-divider"/> IN ACTIVE DEVELOPMENT</div><h1>SybilShield<span className="text-primary">.</span><br/>Real users.<br/><span className="text-primary">Real growth.</span></h1><p className="hero-description">Web3 rewards the wrong wallets.<br/>We’re building the intelligence to change that.</p><p className="hero-subcopy">Precision on-chain attribution. AI-powered Sybil defense.<br className="hidden sm:block"/> Your incentives, in the hands of real people.</p><div id="access"><WaitlistForm/></div><Link to="/vision" className="hero-manifesto">Behind the shield. Read our vision <ArrowUpRight size={15}/></Link></div><div className="visual-tag tag-top"><span className="status-dot"/> WALLET INTELLIGENCE LAYER</div><div className="visual-tag tag-bottom"><ShieldCheck size={14}/> HUMAN SIGNAL DETECTED <span className="text-primary">✓</span></div><div className="hero-bottom"><span className="font-mono">01 / THE NEXT LAYER OF WEB3</span><a href="#signal" aria-label="Explore the signal"><ArrowDown size={17}/></a><span className="font-mono">LESS EXTRACTION. MORE CONNECTION.</span></div></section><div className="capability-band"><span><Fingerprint/> Genuine user intelligence</span><i/><span><Network/> Cross-chain attribution</span><i/><span><ShieldCheck/> Sybil-resistant incentives</span><i/><span className="band-status"><span className="status-dot"/> Built for the human layer</span></div><section id="signal" className="section-container problem-section reveal"><div className="section-heading"><span className="eyebrow">THE SIGNAL VS. THE NOISE</span><h2>Your community isn’t a wallet count.</h2><p>Growth should compound. Not get extracted.</p></div><div className="problem-grid"><article className="problem-item"><div className="item-index"><span>01 / THE PROBLEM</span><Bot size={22}/></div><h3>Incentives are broken.</h3><p>Sybil bots multiply wallets. Mercenary capital farms rewards and disappears. Protocols are left with drained treasuries, inflated metrics, and communities that never were.</p><div className="mini-wallets"><span><X size={13}/> 0x8a2...f91</span><span><X size={13}/> 0x3b7...e02</span><span><X size={13}/> 0x9c1...a84</span></div></article><article className="problem-item solution-item"><div className="item-index"><span>02 / WHAT WE’RE BUILDING</span><Crosshair size={22}/></div><h3>Find the human.<br/>Fuel the growth.</h3><p>Our upcoming AI Genuine Score connects on-chain behavior with off-chain social signals to help distinguish authentic participants from coordinated noise.</p><div className="genuine-label"><Fingerprint size={19}/><span>GENUINE SCORE</span><span className="draft-pill">IN DEVELOPMENT</span></div></article></div></section><section className="scanner-section reveal"><div className="section-container scanner-layout"><div><span className="eyebrow">INTELLIGENCE, NOT GUESSWORK</span><h2>From raw wallets<br/>to real conviction.</h2><p>A richer picture of who participates, why they engage, and where your incentives go. Designed for the protocols building beyond the next airdrop.</p><Button asChild variant="outline" className="mt-7 rounded-sm"><Link to="/developers">Explore the API preview <ArrowUpRight/></Link></Button></div><div className="scanner-tool" aria-label="Illustrative wallet filtering animation"><div className="scanner-header"><span className="status-dot"/> SYBILSHIELD / SIGNAL PROCESSOR <span>SIMULATION</span></div><div className="scan-line"/>{['0x7f3a...92b1','0x1c8e...f640','0x9d2b...3a17','0x5e40...8c92'].map((address,i) => <div className="scan-row" key={address}><span>{address}</span><span className="scan-bar"/><span className={i % 2 ? 'text-cyber' : 'text-primary'}>{i % 2 ? <><X size={12}/> FILTERED</> : <><Check size={12}/> SIGNAL</>}</span></div>)}<div className="scanner-footer"><span>ON-CHAIN + OFF-CHAIN</span><span>→ HUMAN LAYER</span></div></div></div></section><section className="closing-section section-container reveal"><span className="eyebrow">A MORE HUMAN WEB3 STARTS HERE</span><h2>Better incentives.<br/><span className="text-muted-foreground">Built from first principles.</span></h2><Button asChild className="h-12 rounded-sm mt-6"><Link to="/roadmap">See what’s ahead <ArrowUpRight/></Link></Button></section></>;
 }
