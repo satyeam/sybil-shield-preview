@@ -1,0 +1,3 @@
+export function ShieldLogo({ className = '' }: { className?: string }) {
+  return <svg viewBox="0 0 40 44" fill="none" className={className} aria-hidden="true"><path d="M20 3 35 10v13c0 9-15 18-15 18S5 32 5 23V10L20 3Z" stroke="currentColor" strokeWidth="1.8"/><path d="m12 15 8-5 8 5v12l-8 7-8-7V15Zm0 0 8 7 8-7m-8 7v12" stroke="currentColor" strokeWidth="1.2"/><circle cx="20" cy="22" r="3" fill="currentColor"/><circle cx="12" cy="15" r="2" fill="currentColor"/><circle cx="28" cy="15" r="2" fill="currentColor"/></svg>;
+}
