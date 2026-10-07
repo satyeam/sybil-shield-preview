@@ -1,0 +1,15 @@
+{
+  "id": "/",
+  "name": "SybilShield — The Human Layer",
+  "short_name": "SybilShield",
+  "description": "Precision On-Chain Attribution. Zero Bots. Pure Growth.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "icons": [
+    { "src": "/icons/shield-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/shield-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
