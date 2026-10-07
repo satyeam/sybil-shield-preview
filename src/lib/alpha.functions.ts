@@ -12,7 +12,7 @@ export const getAlphaAccount = createServerFn({ method: 'GET' }).middleware([req
 });
 
 export const saveAlphaProfile = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) => z.object({ display_name: z.string().trim().max(80), avatar_url: z.union([z.literal(''), z.string().url().startsWith('https://')]).max(1000) }).parse(input))
+  .inputValidator((input: unknown) => z.object({ display_name: z.string().trim().max(80), avatar_url: z.union([z.literal(''), z.string().url().startsWith('https://').max(1000)]) }).parse(input))
   .handler(async ({ context, data }) => {
     const { error } = await context.supabase.from('profiles').update(data).eq('id', context.userId);
     if (error) throw new Error('Your profile could not be saved.');
