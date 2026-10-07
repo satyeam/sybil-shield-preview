@@ -8,6 +8,13 @@
       "when": 1791384703650,
       "tag": "0000_create_private_waitlist",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791385252249,
+      "tag": "0001_alpha_dashboard_profiles_roles",
+      "breakpoints": true
     }
   ]
 }
